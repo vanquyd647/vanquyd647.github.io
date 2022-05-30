@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bai tap K14</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#menuDangky").click(function(){
+                $("#myModal").modal()
+            })
+
+            $("#selKyhan").change(function(){
+                let kyhan = $("#selKyhan").val()
+
+                let dongia = kyhan == "3 thang" ? 300000 : (kyhan == "6 thang" ? 500000 : 800000)
+
+                $("#txtDongia").val(dongia)
+
+            })
+
+            function kiemTraTTLienlac(){
+                let hoten = $("#txtHoten").val()
+                let regexHoten = /^[A-Z][a-zA-Z]*(\s[A-Z][a-zA-Z]*)*$/
+                if(hoten.trim() == ""){
+                    $("#errorHoten").html("Thong tin lien lac bat buoc nhap")
+                    return false
+                }
+
+                if(!regexHoten.test(hoten)){
+                    $("#errorHoten").html("Thông tin liên lạc phải bắt đầu bằng ký tự in hoa")
+                    return false
+                }
+
+                $("#errorHoten").html("(*)")
+                return true
+            }
+
+            $("#txtHoten").blur(kiemTraTTLienlac)
+
+            function KiemTraTTSoDienThoai()
+            {
+                let sdt = $("#txtSDT").val()
+                let regexSDT = /^(0?)(7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
+                if(sdt.trim()== ""){
+                    $("#errorSodienthoai").html("số điện thoại bắt buộc nhập")
+                    return false
+                }
+
+                if(!regexSDT.test(sdt)){
+                    $("#errorSodienthoai").html("so dien thoai khong dung dinh dang")
+                    return false
+                }
+                $("#errorSodienthoai").html("(*)")
+                return true
+            }
+            $("#txtSDT").blur(KiemTraTTSoDienThoai)
+
+            function KiemTraTTDiaChiNhanBao(){
+                let dc  = $("#txtDiachinhanbao").val()
+                let regexDC = /^[a-zA-Z0-9_]*$/
+                // let regexDC = /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
+                if(dc.trim()== ""){
+                    $("#errorDiaChiNhanBao").html("dia chi nha bao bat buoc nhap")
+                    return false
+                }
+                if(!regexDC.test(dc)){
+                    $("#errorDiaChiNhanBao").html("chua cac ky tu dac biet")
+                    return false
+                }
+                $("#errorDiaChiNhanBao").html("(*)")
+                return true
+            }
+            $("#txtDiachinhanbao").blur(KiemTraTTDiaChiNhanBao)
+
+            let i = 0
+            $("#btnDatbao").click(function(){
+                if(!kiemTraTTLienlac())
+                    return false
+
+                if(!KiemTraTTSoDienThoai())
+                    return false
+                if(!KiemTraTTDiaChiNhanBao())
+                    return false
+
+                let bao = []
+                if($("#tthn").is(":checked"))
+                    bao.push("Tuoi tre hang ngay")
+                if($("#ttc").is(":checked"))
+                    bao.push("Tuoi tre cuoi")
+                if($("#ttcn").is(":checked"))
+                    bao.push("Tuoi tre chu nhat")
+                let tt = []
+                if($("#txtCK").is(":checked"))
+                    tt.push("Chuyen Khoan")
+                if($("#txtTM").is(":checked"))
+                    tt.push("Tien Mat")
+                let hoten = $("#txtHoten").val()
+                let kyhan = $("#selKyhan").val()
+                let dongia = $("#txtDongia").val()
+                let sodt = $("#txtSDT").val()
+                let dcnhanbao = $("#txtDiachinhanbao").val()
+                let thanhtien = dongia * bao.length
+                
+                let row = "<tr><td>"+(++i)+"</td><td>"+bao.join(", ")+"</td><td>"+kyhan+"</td><td>"+hoten+"</td><td>"+sodt+"</td><td>"+dcnhanbao+"</td><td>"+thanhtien+"</td><td>"+tt.join(", ")+"</td></tr>"
+
+                $("tbody").append(row)
+                $("#myModal").modal("hide")
+    
+
+            })
+        })
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row navbar navbar-expand-md bg-light">
+            <ul class="nav navbar-nav col-md-8">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="danhsachsanpham.html">Danh sach san pham</a></li>
+                <li class="nav-item" id="menuDangky"><a class="nav-link" >Dang ky</a></li>
+                <li class="nav-item"><a class="nav-link" href="">About</a></li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                Left
+            </div>
+            <div class="col-md-9">
+                <table class="table table-hover  table-bordered">
+                    <thead>
+                        <tr>
+                            <th>1</th>
+                            <th>Bao</th>
+                            <th>Ky han</th>
+                            <th>Thong tin lien lac</th>
+                            <th>So dien thoai</th>
+                            <th>Dia chi nhan bao</th>
+                            <th>Thanh tien</th>
+                            <th>Hinh thuc thanh toan</th>
+                            <th>k</th>
+                            <th>q</th>
+                            <th>d</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    
+                   <form action="">
+                       <div class="form-group">
+                           <label for="">Dang ky bao</label> <br>
+                           <input type="checkbox"  id="tthn" checked> <label for="">Tuoi tre hang ngay</label>
+                           <input type="checkbox"  id="ttc" checked> <label for="">Tuoi tre cuoi</label>
+                           <input type="checkbox"  id="ttcn"> <label for="">Tuoi tre chu nhat</label>
+                       </div>
+
+                       <div class="form-group">
+                           <label for="">Ky han</label>
+                           <select  id="selKyhan" class="form-control">
+                               <option value="3 thang">3 thang</option>
+                               <option value="6 thang" selected>6 thang</option>
+                               <option value="12 thang">1 nam</option>
+                           </select>
+                       </div>
+
+                       <div class="form-group">
+                           <label for="">Don gia</label>
+                           <input type="text" class="form-control" id="txtDongia" readonly value="500000">
+                       </div>
+
+                       <div class="form-group">
+                        <label for="">Thong tin lien lac</label>
+                        <input type="text" class="form-control" id="txtHoten" required value="Quang Teo"> 
+                        <span id="errorHoten" class="text-danger font-italic">(*)</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="">So dien thoai</label>
+                            <input type="text" class="form-control" id="txtSDT" required value=""> 
+                            <span id="errorSodienthoai" class="text-danger font-italic">(*)</span>
+                            </div>
+
+                        <div class="form-group">
+                        <label for="">Dia chi nhan bao</label>
+                        <input type="text" class="form-control" id="txtDiachinhanbao" required value=""> 
+                        <span id="errorDiaChiNhanBao" class="text-danger font-italic">(*)</span>
+                        </div>
+
+                        <div class="form-group">
+                        <label for="">Hinh thuc thanh toan</label> <br>
+                        <input type="radio"  id="txtCK" name="money" value="ChuyenKhoan">
+                        <label for="">Chuyen Khoan</label>
+                        <input type="radio"  id="txtTM" name="money" value="TienMat">
+                        <label for="">Tien Mat</label>
+                        </div>
+
+
+                    <button type="button" class="btn btn-primary" id="btnDatbao">Dat bao</button>
+                    
+
+                   </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

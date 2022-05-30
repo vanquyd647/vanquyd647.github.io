@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#txta").click(function(){
+                $("#mymodal").modal()
+            })
+
+            function KiemTraHoTen(){
+                let Hoten = $("#txtHoten").val()
+                let regexHoTen = /^[\w\s]*$/
+
+                if(Hoten.trim()==""){
+                    $("#errorHoten").html("Bat buoc nhap")
+                    return false
+                }
+                if(!regexHoTen.test(Hoten)){
+                    $("#errorHoten").html("Chua cac ki tu dac biet")
+                    return false
+                }
+                $("#errorHoten").html("(*)")
+                    return true
+            }
+            $("#txtHoten").blur(KiemTraHoTen)
+
+            function KiemTraTTSoDienThoai(){
+                let sdt= $("#txtSdt").val()
+                let regexSDT = /^(0?)(7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
+
+                if(sdt.trim()== "")
+                {
+                    $("#errorSdt").html("Bat buoc nhap")
+                    return false
+                }
+                if(!regexSDT.test(sdt)){
+                    $("#errorSdt").html("sai dinh dang")
+                    return false
+                }
+                $("#errorSdt").html("(*)")
+                 return true
+            }
+            $('#txtSdt').blur(KiemTraTTSoDienThoai)
+            let i=0
+            $("#btnLuu").click(function(){
+                if(!KiemTraHoTen())
+                    return false
+                if(!KiemTraTTSoDienThoai())
+                    return false
+                let TT =[]
+                if($("#txtCK").is(":checked"))
+                    TT.push("Chuyen khoan")
+                if($("#txtTienmat").is(":checked"))
+                    TT.push("tien mat")
+                    
+                let Hoten = $("#txtHoten").val()
+                let sdt = $("#txtSdt").val()
+                let ghichu = $("#txtghichu").val()
+                let row = "<tr><td>"+(++i)+"</td><td>"+Hoten+"</td><td>"+sdt+"</td><td>"+TT.join(", ")+"</td><td>"+ghichu+"</td></tr>"
+
+                $("tbody").append(row)
+                $("#mymodal").modal("hide")
+
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+           <img src="../img/97833640_p0.jpg" width="1140" alt="">
+        </div>
+        <div class="row navbar navbar-expand-md bg-success">
+            <ul class="nav navbar-nav col-sm-5">
+                <li class="nav-item"> <a href="" class="nav-link">Trang chủ</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Sản phẩm</a></li>
+                <li class="dropdown mt-2"><a href="" class="dropdown-toggle" data-toggle="dropdown">Mua hàng</a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item"><a id="txta">Đăng kí mua</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <!-- <div class="col-sm-1 bg-success">
+
+            </div> -->
+            <div class="col-sm-8">
+                <table class="table table-hover table-striped">
+                    <thead class="thead">
+                        <tr>
+                            <th>STT</th>
+                            <th>Họ tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Phương thức thanh toán</th>
+                            <th>ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-4 bg-success">
+                <div>
+                    <h2>LIÊN HỆ</h2>
+                </div>
+                <div>
+                    <p>Số điện thoại: 0900000000</p>
+                    <p>Email: abc@gmail.com</p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row bg-success">
+            <div>
+                <span>Duong Van Quy</span>
+            </div>
+        </div>
+        <div class="modal" id="mymodal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">Thông tin đặt mua</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <div class="form-group">
+                                <label for="">Họ tên người mua:</label>
+                                <input type="text" class="form-control" placeholder="Họ và tên" required="" id="txtHoten">
+                                <span class="text-danger font-italic" id="errorHoten">(*)</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Số điện thoại:</label>
+                                <input type="text" class="form-control" placeholder="Số điện thoại" required="" id="txtSdt">
+                                <span class="text-danger font-italic" id="errorSdt">(*)</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Phương thức thanh toán:</label> <br>
+                                <input type="radio" name="money" id="txtCK">
+                                <label for="">Chuyển khoản</label>
+                                <input type="radio" name="money" id="txtTienmat">
+                                <label for="">Tiền mặt</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Ghi chú</label>
+                                <textarea class="form-control" name="" id="txtghichu" cols="30" rows="5"></textarea>
+                            </div>
+                            <div class="from-group">
+                                <br>
+                                <button type="button" class="btn btn-primary form-control" id="btnLuu">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

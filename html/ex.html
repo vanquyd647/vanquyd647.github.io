@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bai tap K9</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#formDK").click(function(){
+                $("#myModal").modal()
+            })
+
+            function KiemTraHoTen(){
+                let HoTen = $("#txtHoten").val()
+                let regexHoTen = /^(([A-Z]{1,})([a-zA-Z]{1,}))*(\s[A-Z][a-zA-Z]*)*$/
+                if(HoTen.trim()== ""){
+                    $("#errorHoten").html("bat buoc nhap")
+                    return false
+                }
+                if(!regexHoTen.test(HoTen)){
+                    $("#errorHoten").html("bat buoc nhap")
+                    return false
+                }
+                $("#errorHoten").html("(*)")
+                    return true
+            }
+            $("#txtHoten").blur(KiemTraHoTen)
+            
+            let i=0
+            $("#btnLuu").click(function(){
+                if(!KiemTraHoTen())
+                    return false
+
+                let HoTen = $("#txtHoten").val()
+
+                let row = "<tr><td>"+(++i)+"</td><td>"+HoTen+"</td></tr>"
+
+                $("tbody").append(row)
+                $("#myModal").modal("hide")
+                
+            })
+            
+        })
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row rounded-sm">
+            <img src="../img/1.png" alt="" width="1140">
+        </div>
+        <div class="row navbar navbar-expand-md bg-warning rounded-sm">
+            <ul class="nav navbar-nav col-md-8">
+                <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link" href="danhsachsanpham.html">Tổ chức</a></li>
+                <li class="dropdown mt-2"><a class="dropdown-toggle" data-toggle="dropdown" href="">Đăng ký đặt chỗ</a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item"><a id="formDK">Form đặt chỗ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row " >
+            
+            <div class="col-sm-9 rounded-sm" >
+                <table class="table table-hover  ">
+                    <thead class="thead">
+                        <tr>
+                            <th>STT</th>
+                            <th>Họ tên người đặt tiệc</th>
+                            <th>Điện thoại liên hệ</th>
+                            <th>Ngày nhận tiệc</th>
+                            <th>Giờ nhận tiệc</th>
+                            <th>Số người</th>
+                            <th>Loại tiệc</th>
+                            <th>Loại phòng</th>
+                            <th>thành viên</th>
+                            <th>Dịch vụ đi kèm</th>
+                            <th>Ghi chú</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-3 bg-warning mt-lg-3 pt-sm-2"  >
+                <div>
+                    <h1>Đặt chỗ</h1>
+                </div>
+                <div class="ml-lg-2 mr-lg-2 bg-light rounded-sm p-2">
+                    Nhóm gia đình
+                    <hr>
+                    Tiệc sinh nhật 
+                    <hr>
+                    Nhóm văn phòng
+                </div>
+                <div>
+                    <h1>Contact</h1>
+                    <p>Gọi tới 1900.0000 - Để đặt chỗ và được tư vấn.</p>
+                    <p>Địa chỉ: 13 Trần Bình Trọng - Quận 1 - TPHCM</p>
+                </div>
+                <div>
+                    <h1>Bài viết nổi bật</h1>
+                    <div class="text-left ml-sm-3">
+                        <p>1.<span >Kinh nghiệm tổ chức sinh nhật cho bé</span></p>
+                        <p>2.<span>Đặc sản các miền</span></p>
+                        <p>3.<span>Văn hóa ẩm thực Sài Gòn</span></p>
+                    </div>
+                </div>
+            </div>
+                
+            
+        </div>
+        <div class="row bg-warning rounded-sm">
+            <div class="m-2">
+                Dương Văn Quy
+            </div>
+        </div>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Thông tin đặt tiệc</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="">
+                        
+ 
+                        <div class="form-group">
+                         <label for="">Họ tên người đặt tiệc:</label>
+                         <span id="errorHoten" class="text-danger font-italic">*</span>
+                         <input type="text" class="form-control" id="txtHoten" required value="" placeholder="Họ tên"> 
+                         
+                         </div>
+                         
+                         <div class="form-group">
+                             <label for="">Điện thoại liên hệ:</label>
+                             <span id="errorSodienthoai" class="text-danger font-italic">*</span>
+                             <input type="text" class="form-control" id="txtSDT" required value="" placeholder="Điện thoại"> 
+                            
+                             </div>
+ 
+                         
+                         <div class="form-group">
+                            <label for="">Ngày nhận tiệc: </label> 
+                            <span id="errorNgay" class=" text-danger font-italic">*</span>
+                            <input type="date" name="" id="txtNgay" class="form-control"> 
+                            
+                            </div>
+                        <div class="form-group">
+                            <label for="">Giờ nhận tiệc:</label>
+                            <span id="errorGio" class="text-danger font-italic">*</span>
+                            <input type="time" class="form-control" id="txtGio">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Số người:</label>
+                            <span id="errorSonguoi" class="text-danger font-italic">*</span>
+                            <input type="text" class="form-control" id="txtSonguoi" required value="" > 
+                           
+                            </div>
+
+                        <div class="from-group">
+                            <label for="">Loại tiệc:</label>
+                            <span id="errorLoaitiec" class="text-danger font-italic">*</span>
+                            <select name="" id="selLoaitiec" class="form-control">
+                                <option value="1">Set Menu</option>
+                                <option value="2">Buffet</option>
+                                <option value="3">Finger Food</option>
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Loại phòng:</label>
+                            <span id="errorLoaiphong" class="text-danger font-italic">*</span>
+                            <input type="radio" id="txtVIP" name="loai"> <label for="">VIP</label>
+                            <input type="radio" id="txtThuong" name="loai"> <label for="">thường</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Dịch vụ đi kèm:</label>
+                            <input type="checkbox" id="txtnv"> <label for="">Nhân viên phục vụ riêng</label>
+                            <input type="checkbox" id="hoa"> <label for="">Hoa tươi</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">thành viên:</label>
+                            <input type="checkbox" id="txttv"> <label for="">nếu bạn là thành viên của quán</label>
+                            
+                        </div>
+                        
+                        <div class="from-group">
+                            <label for="">Ghi chú:</label>
+                            <textarea name="" id="txtGhichu" cols="30" rows="10" class="form-control"></textarea> 
+                        </div>
+                        
+                        <div class="from-group">
+                            <br>
+                            <button type="button" class="btn btn-primary form-control" id="btnLuu">Lưu</button>
+                        </div>
+ 
+                     
+                </div>
+          
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+          
+              </div>
+            </div>
+          </div>
+
+    </div>
+
+
+  
+</body>
+</html>
